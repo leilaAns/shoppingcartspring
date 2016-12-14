@@ -1,19 +1,23 @@
 package com.alithya.shoppingcard.configuration;
 
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class MyDispatcherServlet extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return null;
+		return new Class[]{
+				MyWebAppContextConfig.class,MyDataSourceConfig.class
+				};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class[]{
-				MyWebAppContextConfig.class
+				MyDispatcherServlet.class
 				};
 
 	}
@@ -23,5 +27,10 @@ public class MyDispatcherServlet extends AbstractAnnotationConfigDispatcherServl
 		return new String[]{"/"};
 	
 	}
-
+	
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		super.onStartup(servletContext);
+		servletContext.setInitParameter("spring.profiles.active", "test");
+	}
 }

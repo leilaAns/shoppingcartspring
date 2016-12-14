@@ -19,7 +19,6 @@ public class CreateNewItemController {
 
 	@RequestMapping(value = "/createNewItem")
 	public String saveItem(@ModelAttribute Item item) {
-		itemService.addNewItem(item);
 		return "createNewItem";
 	}
 

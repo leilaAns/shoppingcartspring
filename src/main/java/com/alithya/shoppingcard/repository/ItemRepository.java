@@ -1,13 +1,18 @@
 package com.alithya.shoppingcard.repository;
 
 import java.util.List;
+import com.alithya.shoppingcard.entity.BuyableItem;
 import com.alithya.shoppingcard.entity.Item;
 
 public interface ItemRepository {
 
 	public List<Item> findAll();
 
+	public List<BuyableItem> findAllBuyableItems();
+
 	public Item findById(int id);
+
+	public BuyableItem findBuyableItemById(int id);
 
 	public List<Item> findByName(String name);
 
@@ -15,8 +20,16 @@ public interface ItemRepository {
 
 	public List<Item> findByDescription(String des);
 
-	public void deleteItem(int id);
+	public int deleteItem(int id);
 
-	public void update(int id, Item item);
+	public int update(Item item);
+
+	public int insert(Item item);
+
+	public int updateBuyableItemBycount(int id, int count);
+
+	public int resetBuyableItemCount();
+
+	public List<Item> findByKey(String key);
 
 }

@@ -9,9 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.alithya.shoppingcard.service"})
+@ComponentScan({"com.alithya.shoppingcard","com.alithya.shoppingcard.service","com.alithya.shoppingcard.controller","com.alithya.shoppingcard.repository"})
+
 public class MyWebAppContextConfig extends WebMvcConfigurerAdapter  {
 	
 	@Override
@@ -27,6 +29,6 @@ public class MyWebAppContextConfig extends WebMvcConfigurerAdapter  {
 	myResolver.setSuffix(".jsp");
 	return myResolver;
 	}
-
+	
 
 }

@@ -6,17 +6,13 @@ import com.alithya.shoppingcard.entity.Item;
 
 public interface ItemService {
 
-	public List<Item> createList();
-
-	public Item createOneItem(int id, String name, String type, String des);
-
 	public List<Item> findAll();
 
 	public Item find(int id);
 
 	public void addNewItem(Item item);
 
-	public void editItem(int id, Item item);
+	public void editItem(Item item);
 
 	public void deleteItem(int id);
 
@@ -28,10 +24,15 @@ public interface ItemService {
 
 	public List<Item> findItemByKeySearch(String key);
 
-	public BuyableItem CreateBuyableItem(int id, int count);
+	public BuyableItem findBuyableItemById(int id);
 
-	public List<BuyableItem> searchAndCountBuyableItemsInBasket(List<BuyableItem> attribute, String[] parameterValues);
+	public void updateBuyableItemBycount(int id, int count);
 
-	public List<BuyableItem> updateBuyableItemsInBasket(String[] parameterValues, List<BuyableItem> attribute);
+	public void resetBuyableItemBycount();
+	
+	public List<BuyableItem> findAllBuyableItems();
+
+	public void updateSelectedBuyableItemsCount(String[] parameterValues);
+
 
 }

@@ -32,7 +32,7 @@
 					<td>${item.name}</td>
 					<td>${item.type}</td>
 					<td>${item.des}</td>
-					<td><input type="checkbox" name="selectedItem"
+					<td><input type="checkbox" name="selectedItemIds"
 						value="${item.id}"></td>
 
 				</tr>

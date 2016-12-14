@@ -3,7 +3,7 @@ package com.alithya.shoppingcard.entity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Item implements Comparable<Item> {
+public class Item {
 
 	private int Id;
 	private String name;
@@ -58,14 +58,6 @@ public class Item implements Comparable<Item> {
 		return "Item [Id=" + Id + ", name=" + name + ", type=" + type + ", des=" + des + "]";
 	}
 
-	@Override
-	public int compareTo(Item o) {
-		if (o.getId() == this.getId())
-			return 0;
-		else if (o.getId() < this.getId())
-			return -1;
-		else
-			return 1;
-	}
+
 
 }

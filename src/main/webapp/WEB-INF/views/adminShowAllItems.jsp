@@ -29,7 +29,7 @@
 		</tr>
 		<c:forEach items="${allItems}" var="item">
 			<tr>
-				<td><a href='<spring:url value="/showOneItem/${item.id}"/>'>${item.id}</td>
+				<td><a href='<spring:url value="/showItem/${item.id}"/>'>${item.id}</td>
 				<td>${item.name}</td>
 				<td>${item.type}</td>
 				<td>${item.des}</td>

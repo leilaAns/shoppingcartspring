@@ -7,6 +7,13 @@ public class BuyableItem extends Item{
 	
 	private int count = 0;
 	
+	
+	
+	public BuyableItem(int id, String name, String type, String des, int count) {
+		super(id, name, type, des);
+		this.count = count;
+	}
+
 	public BuyableItem() {
 		
 	}
