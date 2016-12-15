@@ -1,10 +1,12 @@
 package com.alithya.shoppingcard.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alithya.shoppingcard.entity.BuyableItem;
 import com.alithya.shoppingcard.entity.Item;
+import com.alithya.shoppingcard.entity.ShoppingCard;
 import com.alithya.shoppingcard.repository.ItemRepository;
 
 @Service
@@ -13,12 +15,19 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private ItemRepository itemRepository;
 
+	@Autowired
+	private ShoppingCard shoppingCard;
+
+	List<Item> items = new ArrayList<>();
+	List<BuyableItem> buyableItems = new ArrayList();
+
 	public ItemServiceImpl() {
 
 	}
 
 	public List<Item> findAll() {
 
+		items = itemRepository.findAll();
 		return itemRepository.findAll();
 	}
 
@@ -79,24 +88,69 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<BuyableItem> findAllBuyableItems() {
+	public List<BuyableItem> findBuyableItemsInBasket() {
 
-		return itemRepository.findAllBuyableItems();
+		List<BuyableItem> buybleItmeInBasket = new ArrayList<BuyableItem>();
+		for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
+			if (buyableItem.getCount() != 0) {
+				buybleItmeInBasket.add(buyableItem);
+			}
+		}
+		return buybleItmeInBasket;
+	}
+
+
+	@Override
+	public void updateShoppingCard(String[] itemIds) {
+
+		int count = 0;
+		for (String id : itemIds) {
+			for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
+				if (buyableItem.getId() == Integer.parseInt(id)) {
+
+					count = buyableItem.getCount();
+					count += 1;
+					buyableItem.setCount(count);
+
+				}
+			}
+			updateBuyableItemBycount(Integer.parseInt(id), count);
+
+		}
+
 	}
 
 	@Override
-	public void updateSelectedBuyableItemsCount(String[] selectedItemIds) {
-		BuyableItem buyableItem = new BuyableItem();
-		int count = 0;
-		for (String id : selectedItemIds) {
+	public void resetBuyableItemCount(String[] buyableItemIds) {
 
-			buyableItem = findBuyableItemById(Integer.parseInt(id));
-			count = buyableItem.getCount();
-			count += 1;
-			updateBuyableItemBycount(Integer.parseInt(id), count);
-			count = 0;
+		for (String id : buyableItemIds) {
+			for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
+				if (buyableItem.getId() == Integer.parseInt(id)) {
+
+					buyableItem.setCount(0);
+
+				}
+			}
 
 		}
+
+	}
+
+	@Override
+	public void CreateBuyableItemList() {
+
+		for (Item item : items) {
+			BuyableItem buyableItem = new BuyableItem();
+			buyableItem.setId(item.getId());
+			buyableItem.setName(item.getName());
+			buyableItem.setType(item.getType());
+			buyableItem.setDes(item.getDes());
+			buyableItem.setCount(0);
+			buyableItems.add(buyableItem);
+
+		}
+		shoppingCard.setBuyableItemList(buyableItems);
+
 	}
 
 }

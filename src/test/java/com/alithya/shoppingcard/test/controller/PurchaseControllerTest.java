@@ -58,7 +58,7 @@ public class PurchaseControllerTest {
 	public void testShowBasketItems() {
 
 		model.addAttribute("purchasedItems",
-				when(itmeService.findAllBuyableItems()).thenReturn((List<BuyableItem>) buyableItemList));
+				when(itmeService.findBuyableItemsInBasket()).thenReturn((List<BuyableItem>) buyableItemList));
 		assertTrue(model.containsAttribute("purchasedItems"));
 		assertSame("return the correct page", "purchase", purchaseController.showBasketItems(model));
 

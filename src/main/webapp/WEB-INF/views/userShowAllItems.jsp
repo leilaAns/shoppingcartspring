@@ -22,7 +22,6 @@
 	<form:form>
 		<table>
 			<tr>
-
 				<td>name</td>
 				<td>type</td>
 				<td>description</td>

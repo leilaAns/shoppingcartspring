@@ -16,8 +16,7 @@ public class PurchaseController {
 	@RequestMapping(value = "/purchase")
 	public String showBasketItems(Model model) {
 
-		model.addAttribute("purchasedItems", itemService.findAllBuyableItems());
-		itemService.resetBuyableItemBycount();
+		model.addAttribute("purchasedItems", itemService.findBuyableItemsInBasket());
 		return "purchase";
 	}
 }

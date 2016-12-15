@@ -60,14 +60,14 @@ public class ShowBasketControllerTest {
 	
 	@Test
 	public void testShowBuyableItemsInBasket(){
-		model.addAttribute("allBuyableItemsInBasket",  when(itmeService.findAllBuyableItems()).thenReturn((List<BuyableItem>) buyableItemList));
+		model.addAttribute("allBuyableItemsInBasket",  when(itmeService.findBuyableItemsInBasket()).thenReturn((List<BuyableItem>) buyableItemList));
 		assertTrue(model.containsAttribute("allBuyableItemsInBasket"));
 		assertSame("return correct page", "showBasket", showBasketController.showBuyableItemsInBasket(model));		
 	}
 	
 	@Test
 	public void testShowAndSaveBuyableItemsInBasket(){
-		model.addAttribute("allBuyableItemsInBasket",when(itmeService.findAllBuyableItems()).thenReturn((List<BuyableItem>) buyableItemList));
+		model.addAttribute("allBuyableItemsInBasket",when(itmeService.findBuyableItemsInBasket()).thenReturn((List<BuyableItem>) buyableItemList));
 		assertTrue("model is not null", model.containsAttribute("allBuyableItemsInBasket"));
 		assertSame("return correct page", "showBasket", showBasketController.saveBuyableItemsInBasket(request, model));		
 		

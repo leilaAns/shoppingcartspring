@@ -15,7 +15,7 @@ public class AdminShowAllItemsController {
 
 	@RequestMapping("/adminShowAllItems")
 	public String showAllItem(Model model) {
-		model.addAttribute("allItems", this.itemService.findAll());
+		model.addAttribute("allItems", itemService.findAll());
 		return "adminShowAllItems";
 	}
 }

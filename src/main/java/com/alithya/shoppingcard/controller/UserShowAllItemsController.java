@@ -1,6 +1,8 @@
 package com.alithya.shoppingcard.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +19,8 @@ public class UserShowAllItemsController {
 	@RequestMapping(value = "/userShowAllItems", method = RequestMethod.POST)
 	public String saveItem(HttpServletRequest request, Model model) {
 
-		itemService.updateSelectedBuyableItemsCount(request.getParameterValues("selectedItemIds"));
-		model.addAttribute("allItems", this.itemService.findAll());
+		itemService.updateShoppingCard(request.getParameterValues("selectedItemIds"));
+		model.addAttribute("allItems", itemService.findAll());
 
 		return "userShowAllItems";
 
@@ -26,7 +28,9 @@ public class UserShowAllItemsController {
 
 	@RequestMapping("/userShowAllItems")
 	public String showAllItemOnpage(Model model) {
-		model.addAttribute("allItems", this.itemService.findAll());
+		
+		model.addAttribute("allItems", itemService.findAll());
+		itemService.CreateBuyableItemList();
 		return "userShowAllItems";
 	}
 

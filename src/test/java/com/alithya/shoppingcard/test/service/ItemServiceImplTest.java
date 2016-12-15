@@ -147,20 +147,14 @@ public class ItemServiceImplTest {
 		when(itemRepository.findByType("type1")).thenReturn((itemList));
 		List<Item> findedItems = itemService.findItemByKeySearch("type1");
 		assertNotNull(findedItems);
-	
+
 	}
 
 	@Test
 	public void testFindBuyableItemById() {
-		when(itemRepository.findBuyableItemById(120)).thenReturn((new BuyableItem(120, "name", "type", "des",1)));
+		when(itemRepository.findBuyableItemById(120)).thenReturn((new BuyableItem(120, "name", "type", "des", 1)));
 		assertNotNull(itemService.findBuyableItemById(120));
 		assertEquals("name", itemService.findBuyableItemById(120).getName());
 	}
-	
-	@Test
-	public void testFinAllBuyableItemIsNotNull() {
-		when(itemRepository.findAllBuyableItems()).thenReturn((List<BuyableItem>) buyableItemList);
-		assertNotNull(itemService.findAllBuyableItems());
-	
-	}
+
 }

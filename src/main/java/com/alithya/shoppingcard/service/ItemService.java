@@ -29,10 +29,13 @@ public interface ItemService {
 	public void updateBuyableItemBycount(int id, int count);
 
 	public void resetBuyableItemBycount();
-	
-	public List<BuyableItem> findAllBuyableItems();
 
-	public void updateSelectedBuyableItemsCount(String[] parameterValues);
+	public List<BuyableItem> findBuyableItemsInBasket();
 
+	public void updateShoppingCard(String[] itemIds);
+
+	public void CreateBuyableItemList();
+
+	public void resetBuyableItemCount(String[] buyableItemIds);
 
 }
