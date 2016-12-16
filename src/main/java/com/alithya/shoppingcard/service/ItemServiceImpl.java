@@ -63,27 +63,9 @@ public class ItemServiceImpl implements ItemService {
 		return itemRepository.findByDescription(des);
 	}
 
-	@Override
-	public BuyableItem findBuyableItemById(int id) {
-		return itemRepository.findBuyableItemById(id);
-	}
-
-	@Override
-	public void updateBuyableItemBycount(int id, int count) {
-		itemRepository.updateBuyableItemBycount(id, count);
-
-	}
-
 	public List<Item> findItemByKeySearch(String key) {
 
 		return itemRepository.findByKey(key);
-
-	}
-
-	@Override
-	public void resetBuyableItemBycount() {
-
-		itemRepository.resetBuyableItemCount();
 
 	}
 
@@ -99,7 +81,6 @@ public class ItemServiceImpl implements ItemService {
 		return buybleItmeInBasket;
 	}
 
-
 	@Override
 	public void updateShoppingCard(String[] itemIds) {
 
@@ -114,7 +95,6 @@ public class ItemServiceImpl implements ItemService {
 
 				}
 			}
-			updateBuyableItemBycount(Integer.parseInt(id), count);
 
 		}
 

@@ -150,11 +150,4 @@ public class ItemServiceImplTest {
 
 	}
 
-	@Test
-	public void testFindBuyableItemById() {
-		when(itemRepository.findBuyableItemById(120)).thenReturn((new BuyableItem(120, "name", "type", "des", 1)));
-		assertNotNull(itemService.findBuyableItemById(120));
-		assertEquals("name", itemService.findBuyableItemById(120).getName());
-	}
-
 }

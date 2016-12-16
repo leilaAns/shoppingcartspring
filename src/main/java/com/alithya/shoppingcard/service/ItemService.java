@@ -24,12 +24,6 @@ public interface ItemService {
 
 	public List<Item> findItemByKeySearch(String key);
 
-	public BuyableItem findBuyableItemById(int id);
-
-	public void updateBuyableItemBycount(int id, int count);
-
-	public void resetBuyableItemBycount();
-
 	public List<BuyableItem> findBuyableItemsInBasket();
 
 	public void updateShoppingCard(String[] itemIds);

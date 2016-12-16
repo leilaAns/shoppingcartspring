@@ -21,17 +21,13 @@ import com.alithya.shoppingcard.entity.Item;
 public class ItemRepositoryImpl implements ItemRepository {
 
 	public static final String FIND_ALLITEMS = "select * from item_table";
-	public static final String FIND_ALLBUYABLEITEMS = "select * from item_table where count <> '0' ";
 	public static final String FIND_ITEM_BYID = "select * from item_table where id = :itemId";
-	public static final String FIND_BUYABLEITEM_BYID = "select * from item_table where id = :buyableItmeId";
 	public static final String FIND_ITEM_BYNMAE = "select * from item_table where name like :itemName";
 	public static final String FIND_ITEM_BYTYPE = "select * from item_table where type like :itemType";
 	public static final String FIND_ITEM_BYDESCRIPTION = "select * from item_table where description like :itemDes";
 	public static final String DELETE_ITEM = "delete from item_table where id = :itemId";
 	public static final String INSERT_ITEM = "insert into item_table values(:itemId,:itemName,:itemType,:itemDes,:itemCount)";
 	public static final String UPDATE_ITEM = "update item_table set name = :itemName , type = :itemType , description = :itemDes where id = :itemId";
-	public static final String UPDATE_BUYABLEITEM = "update item_table set count = :itemCount where id = :itemId";
-	public static final String RESET_BUYABLEITEM_COUNT = "update item_table set count='0'";
 	public static final String FIND_TIEM_BYKEY = "select * from item_table where name like :key or type like :key or description like :key";
 
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -52,12 +48,6 @@ public class ItemRepositoryImpl implements ItemRepository {
 	}
 
 	@Override
-	public List<BuyableItem> findAllBuyableItems() {
-
-		return namedParameterJdbcTemplate.query(FIND_ALLBUYABLEITEMS, new BuyableItemMapper());
-	}
-
-	@Override
 	public Item findById(int id) {
 
 		namedParameters = new MapSqlParameterSource("itemId", id);
@@ -65,13 +55,6 @@ public class ItemRepositoryImpl implements ItemRepository {
 
 	}
 
-	@Override
-	public BuyableItem findBuyableItemById(int id) {
-
-		namedParameters = new MapSqlParameterSource("buyableItmeId", id);
-		return namedParameterJdbcTemplate.queryForObject(FIND_BUYABLEITEM_BYID, namedParameters,
-				new BuyableItemMapper());
-	}
 
 	@Override
 	public List<Item> findByName(String name) {
@@ -132,21 +115,6 @@ public class ItemRepositoryImpl implements ItemRepository {
 
 	}
 
-	@Override
-	public int updateBuyableItemBycount(int id, int count) {
-
-		namedParametersMap.put("itemCount", count);
-		namedParametersMap.put("itemId", id);
-		return namedParameterJdbcTemplate.update(UPDATE_BUYABLEITEM, namedParametersMap);
-
-	}
-
-	@Override
-	public int resetBuyableItemCount() {
-		namedParameters = new MapSqlParameterSource();
-		return namedParameterJdbcTemplate.update(RESET_BUYABLEITEM_COUNT, namedParameters);
-	}
-
 	private class ItemMapper implements RowMapper<Item> {
 
 		@Override
@@ -157,14 +125,5 @@ public class ItemRepositoryImpl implements ItemRepository {
 
 	}
 
-	private class BuyableItemMapper implements RowMapper<BuyableItem> {
-
-		@Override
-		public BuyableItem mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
-			return new BuyableItem(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("type"),
-					resultSet.getString("description"), resultSet.getInt("count"));
-		}
-
-	}
 
 }
