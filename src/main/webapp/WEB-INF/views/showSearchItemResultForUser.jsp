@@ -17,13 +17,14 @@
 			<td>name</td>
 			<td>type</td>
 			<td>description</td>
+			<td>price</td>
 		</tr>
 		<c:forEach items="${result}" var="item">
 			<tr>
 				<td>${item.name}</td>
 				<td>${item.type}</td>
 				<td>${item.des}</td>
-
+				<td>${item.price}</td>
 			</tr>
 		</c:forEach>
 	</table>

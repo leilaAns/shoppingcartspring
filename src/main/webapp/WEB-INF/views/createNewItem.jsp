@@ -32,6 +32,11 @@
 				<form:textarea path="des" rows="5" />
 			</div>
 			<div>
+				<label>price : </label>
+				<form:input path="price"  />
+			</div>
+				
+			<div>
 
 				<button type="submit">Save</button>
 			</div>

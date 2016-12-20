@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.alithya.shoppingcard","com.alithya.shoppingcard.service","com.alithya.shoppingcard.controller","com.alithya.shoppingcard.repository"})
+@ComponentScan({"com.alithya.shoppingcard","com.alithya.shoppingcard.service","com.alithya.shoppingcard.controller","com.alithya.shoppingcard.repository","com.alithya.shoppingcard.resolvers"})
 
 public class MyWebAppContextConfig extends WebMvcConfigurerAdapter  {
 	

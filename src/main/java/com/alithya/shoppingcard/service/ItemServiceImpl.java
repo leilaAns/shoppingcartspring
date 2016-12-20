@@ -73,11 +73,17 @@ public class ItemServiceImpl implements ItemService {
 	public List<BuyableItem> findBuyableItemsInBasket() {
 
 		List<BuyableItem> buybleItmeInBasket = new ArrayList<BuyableItem>();
+		double totalPrice = 0.0;
 		for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
 			if (buyableItem.getCount() != 0) {
 				buybleItmeInBasket.add(buyableItem);
 			}
 		}
+		for(BuyableItem buyableItemInBasket:buybleItmeInBasket){
+			 
+			totalPrice += buyableItemInBasket.getPrice()*buyableItemInBasket.getCount();
+		}
+		shoppingCard.setTotalPrice(totalPrice);
 		return buybleItmeInBasket;
 	}
 
@@ -126,11 +132,17 @@ public class ItemServiceImpl implements ItemService {
 			buyableItem.setType(item.getType());
 			buyableItem.setDes(item.getDes());
 			buyableItem.setCount(0);
+			buyableItem.setPrice(item.getPrice());
 			buyableItems.add(buyableItem);
 
 		}
 		shoppingCard.setBuyableItemList(buyableItems);
 
+	}
+
+	@Override
+	public double getTotalPrice() {
+		return shoppingCard.getTotalPrice();
 	}
 
 }

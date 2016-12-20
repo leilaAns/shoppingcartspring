@@ -28,7 +28,7 @@ public class CreateNewItemControllerTest {
 	@InjectMocks
 	private CreateNewItemController createNewItemController;
 
-	private Item item = new Item(1, "name", "type", "des");
+	private Item item = new Item(1, "name", "type", "des",10.00);
 
 	@Before
 	public void setup() {

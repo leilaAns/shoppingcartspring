@@ -9,12 +9,15 @@ public class Item {
 	private String name;
 	private String type;
 	private String des;
+	private double price;
 
-	public Item(int id, String name, String type, String des) {
+	public Item(int id, String name, String type, String des, double price) {
+
 		Id = id;
 		this.name = name;
 		this.type = type;
 		this.des = des;
+		this.price = price;
 	}
 
 	public Item() {
@@ -52,11 +55,21 @@ public class Item {
 	public void setDes(String des) {
 		this.des = des;
 	}
+	
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
 	@Override
 	public String toString() {
-		return "Item [Id=" + Id + ", name=" + name + ", type=" + type + ", des=" + des + "]";
+		return "Item [Id=" + Id + ", name=" + name + ", type=" + type + ", des=" + des + ", price=" + price + "]";
 	}
+
 
 
 

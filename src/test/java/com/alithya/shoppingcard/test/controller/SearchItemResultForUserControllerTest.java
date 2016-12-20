@@ -53,7 +53,7 @@ public class SearchItemResultForUserControllerTest {
 		String results = searchItemResultForUserController.showResult(session,  model, sessionStatus);
 		assertTrue("return the correct page", "showSearchItemResultForUser".equals(results));
 		assertTrue(model.containsAttribute("result"));
-		itmeList.add(new Item(1,"name","type","des"));
+		itmeList.add(new Item(1,"name","type","des",20.00));
 		session.setAttribute("itemsResult", itmeList);
 		assertNotNull(session.getAttribute("itemsResult"));
 		model.addAttribute(session.getAttribute("itemsResult"));

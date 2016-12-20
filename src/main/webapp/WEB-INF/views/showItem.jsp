@@ -31,14 +31,19 @@
 				<label>Description : </label>
 				<form:textarea path="des" rows="5" id="des" />
 			</div>
+
+			<div>
+				<label>Price : </label>
+				<form:input path="price" />
+			</div>
+
 			<div>
 				<div></div>
 				<button type="submit" name="action" value="edit">Edit</button>
 				<button type="submit" name="action" value="delete">Delete</button>
 			</div>
 			<div>
-				<br>
-				<br>
+				<br> <br>
 			</div>
 
 

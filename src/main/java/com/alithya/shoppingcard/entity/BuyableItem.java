@@ -9,8 +9,8 @@ public class BuyableItem extends Item{
 	
 	
 	
-	public BuyableItem(int id, String name, String type, String des, int count) {
-		super(id, name, type, des);
+	public BuyableItem(int id, String name, String type, String des,double price ,int count) {
+		super(id,name,type,des,price);
 		this.count = count;
 	}
 

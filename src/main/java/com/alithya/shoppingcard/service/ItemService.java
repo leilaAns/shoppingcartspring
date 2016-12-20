@@ -31,5 +31,7 @@ public interface ItemService {
 	public void CreateBuyableItemList();
 
 	public void resetBuyableItemCount(String[] buyableItemIds);
+	
+	public double getTotalPrice();
 
 }

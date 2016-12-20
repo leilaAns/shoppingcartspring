@@ -7,17 +7,14 @@ import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-import com.alithya.shoppingcard.entity.BuyableItem;
 import com.alithya.shoppingcard.entity.Item;
 
 @Repository
-@Profile("test")
 public class ItemRepositoryImpl implements ItemRepository {
 
 	public static final String FIND_ALLITEMS = "select * from item_table";
@@ -26,7 +23,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public static final String FIND_ITEM_BYTYPE = "select * from item_table where type like :itemType";
 	public static final String FIND_ITEM_BYDESCRIPTION = "select * from item_table where description like :itemDes";
 	public static final String DELETE_ITEM = "delete from item_table where id = :itemId";
-	public static final String INSERT_ITEM = "insert into item_table values(:itemId,:itemName,:itemType,:itemDes,:itemCount)";
+	public static final String INSERT_ITEM = "insert into item_table values(:itemId,:itemName,:itemType,:itemDes,:itemPrice)";
 	public static final String UPDATE_ITEM = "update item_table set name = :itemName , type = :itemType , description = :itemDes where id = :itemId";
 	public static final String FIND_TIEM_BYKEY = "select * from item_table where name like :key or type like :key or description like :key";
 
@@ -100,6 +97,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 		namedParametersMap.put("itemType", item.getType());
 		namedParametersMap.put("itemDes", item.getDes());
 		namedParametersMap.put("itemCount", 0);
+		namedParametersMap.put("itemPrice", item.getPrice());
 		return namedParameterJdbcTemplate.update(INSERT_ITEM, namedParametersMap);
 
 	}
@@ -120,7 +118,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 		@Override
 		public Item mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
 			return new Item(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("type"),
-					resultSet.getString("description"));
+					resultSet.getString("description"), resultSet.getDouble("price"));
 		}
 
 	}

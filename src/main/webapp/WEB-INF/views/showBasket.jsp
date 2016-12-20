@@ -23,6 +23,7 @@
 				<td>name</td>
 				<td>type</td>
 				<td>description</td>
+				<td>price</td>
 
 			</tr>
 			<c:forEach items="${allBuyableItemsInBasket}" var="buyabelItem">
@@ -31,6 +32,7 @@
 					<td>${buyabelItem.name}</td>
 					<td>${buyabelItem.type}</td>
 					<td>${buyabelItem.des}</td>
+					<td>${buyabelItem.price}</td>
 					<td><label>Count</label><input type="text" name="count"
 						value="${buyabelItem.count}" readonly>
 					<td><input type="checkbox" name="markedAsDeletedFromBasket"

@@ -29,20 +29,21 @@ public class ItemServiceImplTest {
 	private List<Item> itemList;
 	private BuyableItem buyableItme;
 	private List<BuyableItem> buyableItemList;
+	
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		itemList = new ArrayList<Item>();
-		itemList.add(new Item(1, "name1", "type1", "des"));
-		itemList.add(new Item(2, "name2", "type2", "des"));
-		itemList.add(new Item(3, "name3", "type3", "des"));
-		itemList.add(new Item(4, "name4", "type4", "des"));
-		itemList.add(new Item(5, "name5", "type5", "des"));
-		itemList.add(new Item(6, "name6", "type6", "des"));
-		itemList.add(new Item(7, "name7", "type7", "des"));
-		itemList.add(new Item(8, "name8", "type8", "des"));
-		itemList.add(new Item(9, "name9", "type9", "des9"));
+		itemList.add(new Item(1, "name1", "type1", "des",10.00));
+		itemList.add(new Item(2, "name2", "type2", "des",10.00));
+		itemList.add(new Item(3, "name3", "type3", "des",10.00));
+		itemList.add(new Item(4, "name4", "type4", "des",10.00));
+		itemList.add(new Item(5, "name5", "type5", "des",10.00));
+		itemList.add(new Item(6, "name6", "type6", "des",10.00));
+		itemList.add(new Item(7, "name7", "type7", "des",10.00));
+		itemList.add(new Item(8, "name8", "type8", "des",10.00));
+		itemList.add(new Item(9, "name9", "type9", "des9",10.00));
 		buyableItme = new BuyableItem();
 		buyableItme.setId(2);
 		buyableItme.setName("name");
@@ -79,7 +80,7 @@ public class ItemServiceImplTest {
 
 	@Test
 	public void testFindItemById() {
-		when(itemRepository.findById(111)).thenReturn((new Item(111, "name", "type", "des")));
+		when(itemRepository.findById(111)).thenReturn((new Item(111, "name", "type", "des",10.00)));
 		assertNotNull(itemService.find(111));
 		assertEquals("name", itemService.find(111).getName());
 	}

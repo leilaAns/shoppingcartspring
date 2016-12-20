@@ -25,14 +25,18 @@
 			<td>Id</td>
 			<td>name</td>
 			<td>type</td>
+			
 			<td>description</td>
+			<td>price</td>
 		</tr>
 		<c:forEach items="${allItems}" var="item">
 			<tr>
 				<td><a href='<spring:url value="/showItem/${item.id}"/>'>${item.id}</td>
 				<td>${item.name}</td>
 				<td>${item.type}</td>
+				
 				<td>${item.des}</td>
+				<td>${item.price}</td>
 
 			</tr>
 		</c:forEach>

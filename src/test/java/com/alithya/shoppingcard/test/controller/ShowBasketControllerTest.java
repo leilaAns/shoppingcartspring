@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -40,7 +39,6 @@ public class ShowBasketControllerTest {
 	private ShowBasketController showBasketController;
 	
 	private Model model;
-	private int count;
 	private List<BuyableItem> buyableItemList;
 	
 	@Before
@@ -55,7 +53,6 @@ public class ShowBasketControllerTest {
 		buyableItem.setDes("des");
 		buyableItem.setCount(1);
 		buyableItemList.add(buyableItem);
-		count = 1;
 	}
 	
 	@Test

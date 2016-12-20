@@ -45,7 +45,7 @@ public class SearchItemControllerTest {
 	public void testGetItem() {
 
 		List<Item> items = new ArrayList<Item>();
-		items.add(new Item(1, "name1", "type1", "des"));
+		items.add(new Item(1, "name1", "type1", "des",10.00));
 		session.setAttribute("itemResult", when(itmeService.findItemByKeySearch(anyString())).thenReturn((List) items));
 		assertSame("redirect:/showSearchItemResultForUser", searchItemController.getItem("name1", session));
 		assertNotNull("verifying session is not null", session.getAttribute("itemResult"));

@@ -21,7 +21,7 @@ import com.alithya.shoppingcard.repository.ItemRepository;
 public class ItemRepositoryImplTest {
 
 	@Autowired
-	private ItemRepository itemRepository;
+	private ItemRepository itemRepository ;
 
 	@Test
 	public void testFindAll() {
@@ -81,7 +81,7 @@ public class ItemRepositoryImplTest {
 
 	@Test
 	public void testInsert() {
-		int id = itemRepository.insert(new Item(11, "name11", "type11", "des11"));
+		int id = itemRepository.insert(new Item(11, "name11", "type11", "des11",20.00));
 		assertNotNull(id);
 
 	}
