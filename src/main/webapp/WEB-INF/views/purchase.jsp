@@ -66,9 +66,7 @@
 			<button type="submit" name="action" value="recharge">Recharge</button><label>recharge your account by 100$</label>
 		</div>
 		<div>
-			<div>
-				<label>YourBalance :</label> <input type="text" name="balance" value=${balance } readonly />
-			</div>
+		
 			<div id="status_message" name="message">${message }</div>
 	</form:form>
 

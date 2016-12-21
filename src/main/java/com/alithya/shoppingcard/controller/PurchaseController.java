@@ -28,10 +28,6 @@ public class PurchaseController {
 
 		model.addAttribute("purchasedItems", itemService.findBuyableItemsInBasket());
 		model.addAttribute("totalPrice", itemService.getTotalPrice());
-		RestTemplate template = new RestTemplate();
-	    ResponseEntity<Double> clientDoubleEntity = template.getForEntity(WebServiceConstant.GETBALANCE_URL_API,Double.class);
-		 if(clientDoubleEntity.getStatusCodeValue() == 200)
-			 model.addAttribute("balance", clientDoubleEntity.getBody().doubleValue());
 		return "purchase";
 	}
 	 
@@ -44,33 +40,34 @@ public class PurchaseController {
 
 		
 		if (action.equals("pay")) {
-
-			 ResponseEntity<Double> clientDoubleEntity = template.getForEntity(WebServiceConstant.GETBALANCE_URL_API,Double.class);
-			 if(clientDoubleEntity.getStatusCodeValue() == 200){
-					 double balance = clientDoubleEntity.getBody().doubleValue();
-					 if(balance >= itemService.getTotalPrice()){
-						
-				        map.put("clientId", "1");
-				        map.put("account", String.valueOf(balance - itemService.getTotalPrice()));
-				        map.put("arg3", "arg3");
-				        ResponseEntity<Void> clientEntity = template.getForEntity(WebServiceConstant.UPDATE_BALANCE_URL_API,Void.class ,map);
-				        if(clientEntity.getStatusCodeValue() != 200){
+			  
+	        map.put("clientId", "1");
+	        map.put("cost", String.valueOf(itemService.getTotalPrice()));
+			 ResponseEntity<String> clientCheckBalance = template.getForEntity(WebServiceConstant.CheckBALANCE_URL_API,String.class,map);
+			 if(clientCheckBalance.getBody().equals("isdone")){
+				
+				        map.put("clientId", "10");
+				        map.put("account", String.valueOf(itemService.getTotalPrice()));
+				        ResponseEntity<String> clientEntity = template.getForEntity(WebServiceConstant.UPDATE_BALANCE_URL_API,String.class ,map);
+				        System.out.println(clientEntity.getBody());
+				        if(clientCheckBalance.getBody().equals("isdone")){
+				        	destination = "redirect:/receipt";
+				        }
+				        else{
 				        	throw new RuntimeException("there is an exception in webService");
 				        }
-				        destination = "redirect:/receipt";
-					}
-					
+				
 				} 
 			 else
 				 throw new RuntimeException("there is an exception in webService");
 			 
 		}
-		else {
+		else if(action.equals("recharge")) {
 			
 	        map.put("clientId", "1");
 	        map.put("account", String.valueOf(100.0));
-	        ResponseEntity<Void> clientEntity = template.getForEntity(WebServiceConstant.RECHARGE_BALANCE_URL_API,Void.class ,map);
-	        if(clientEntity.getStatusCodeValue() != 200){
+	        ResponseEntity<String> clientEntity = template.getForEntity(WebServiceConstant.RECHARGE_BALANCE_URL_API,String.class ,map);
+	        if(!clientEntity.getBody().equals("isdone")){
 	        	throw new RuntimeException("there is an exception in webService");
 	        }
 		}
