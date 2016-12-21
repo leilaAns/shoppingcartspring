@@ -8,5 +8,7 @@
 </head>
 <body>
 <h1>An error was encountered in payment !!! try again </h1>
+
+
 </body>
 </html>

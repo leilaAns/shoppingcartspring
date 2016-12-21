@@ -31,6 +31,6 @@ public class MyDispatcherServlet extends AbstractAnnotationConfigDispatcherServl
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
-		servletContext.setInitParameter("spring.profiles.active", "test");
+		servletContext.setInitParameter("spring.profiles.active", "dev");
 	}
 }

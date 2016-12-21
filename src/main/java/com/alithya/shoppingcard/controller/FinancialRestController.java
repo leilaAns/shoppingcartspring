@@ -13,7 +13,7 @@ import com.alithya.shoppingcard.service.ClientBalanceService;
 
 @RestController
 @RequestMapping("/rest/api/v1")
-public class GetBalanceRestController {
+public class FinancialRestController {
 
 	@Autowired
 	private ClientBalanceService clientBalanceService;
@@ -29,20 +29,23 @@ public class GetBalanceRestController {
 
 			return new ResponseEntity<Double>(0.0, HttpStatus.NOT_FOUND);
 		}
-	
+
 	}
 
 	@RequestMapping(value = "/updateBalance/{clientId}/{account}", method = RequestMethod.GET)
 	public ResponseEntity<Void> updateBalance(@PathVariable int clientId, @PathVariable double account) {
-		int result = clientBalanceService.updateClietnBalance(clientId, account);
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		int result = clientBalanceService.updateClietnBalance(clientId, account);
+
 		if (result == 1) {
-			
+
 			return new ResponseEntity<Void>(headers, HttpStatus.OK);
-			
+
 		} else {
-			
+
 			return new ResponseEntity<Void>(headers, HttpStatus.NOT_FOUND);
 		}
 

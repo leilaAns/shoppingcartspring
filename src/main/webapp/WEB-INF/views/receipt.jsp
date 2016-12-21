@@ -9,9 +9,6 @@
 <body>
 	<h3>thank you for shopping :)</h3>
 
-	<div>
-		<label>YourBalance :</label> <input type="text" name="balance"
-			value=${balance } readonly />
-	</div>
+
 </body>
 </html>

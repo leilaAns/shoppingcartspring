@@ -1,6 +1,6 @@
-package com.alithya.shoppingcard.statics;
+package com.alithya.shoppingcard.constant;
 
-public class WebServiceStatics {
+public class WebServiceConstant {
 	
 	public static final String GETBALANCE_URL_API = "http://localhost:8080/shoppingcartspring/rest/api/v1/getBalance";
 	public static final String UPDATE_BALANCE_URL_API = "http://localhost:8080/shoppingcartspring/rest/api/v1/updateBalance/{clientId}/{account}";

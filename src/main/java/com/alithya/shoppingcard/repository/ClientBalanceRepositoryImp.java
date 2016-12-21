@@ -40,7 +40,7 @@ public class ClientBalanceRepositoryImp implements ClientBalanceRepository {
 	public int updateClientBalance(int clientId,double account) {
 		namedParametersMap.put("account", account);
 		namedParametersMap.put("clientId",clientId);
-		return namedParameterJdbcTemplate.update(UPDATE_BALANCE, namedParametersMap);
+	   return  namedParameterJdbcTemplate.update(UPDATE_BALANCE, namedParametersMap);
 	}
 
 	@Override

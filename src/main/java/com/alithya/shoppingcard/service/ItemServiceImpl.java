@@ -77,12 +77,10 @@ public class ItemServiceImpl implements ItemService {
 		for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
 			if (buyableItem.getCount() != 0) {
 				buybleItmeInBasket.add(buyableItem);
+				totalPrice += buyableItem.getPrice()*buyableItem.getCount();
 			}
 		}
-		for(BuyableItem buyableItemInBasket:buybleItmeInBasket){
-			 
-			totalPrice += buyableItemInBasket.getPrice()*buyableItemInBasket.getCount();
-		}
+
 		shoppingCard.setTotalPrice(totalPrice);
 		return buybleItmeInBasket;
 	}
