@@ -36,12 +36,12 @@ public class ClientBalanceRepositoryImp implements ClientBalanceRepository {
 	}
 	
 	@Override
-	public double getClientBalance(int clientId) throws SQLException,FinancialServiceException{
+	public double getClientBalance(int clientId) throws FinancialServiceException{
 		namedParameters = new MapSqlParameterSource("clientId", clientId);
 		try{
 			return namedParameterJdbcTemplate.queryForObject(GET_BALANCE, namedParameters,double.class);
 		}catch (EmptyResultDataAccessException e) {
-			throw new FinancialServiceException("client not found");
+			throw new FinancialServiceException("transaction is not done");
 		}catch (Exception e) {
 			throw new FinancialServiceException("sql Exception");
 		}
@@ -49,7 +49,7 @@ public class ClientBalanceRepositoryImp implements ClientBalanceRepository {
 	}
 
 	@Override
-	public int updateClientBalance(int clientId,double account) throws SQLException, FinancialServiceException {
+	public int updateClientBalance(int clientId,double account) throws FinancialServiceException {
 		
 		namedParametersMap.put("clientId",clientId);
 		double balance =0;
@@ -58,7 +58,7 @@ public class ClientBalanceRepositoryImp implements ClientBalanceRepository {
 			 namedParametersMap.put("account", balance - account);
 			 return  namedParameterJdbcTemplate.update(UPDATE_BALANCE, namedParametersMap);
 		}catch (EmptyResultDataAccessException e) {
-			throw new FinancialServiceException("client not found");
+			throw new FinancialServiceException("transaction is not done");
 		}catch (Exception e) {
 			throw new FinancialServiceException("sql Exception");
 		}
@@ -66,7 +66,7 @@ public class ClientBalanceRepositoryImp implements ClientBalanceRepository {
 	}
 
 	@Override
-	public int rechargeClientBalance(int clientId, double account) throws SQLException,FinancialServiceException{
+	public int rechargeClientBalance(int clientId, double account) throws FinancialServiceException{
 		namedParametersMap.put("account", account);
 		namedParametersMap.put("clientId",clientId);
 		try{
@@ -74,7 +74,7 @@ public class ClientBalanceRepositoryImp implements ClientBalanceRepository {
 				return namedParameterJdbcTemplate.update(RECHARGE_BALANCE, namedParametersMap);
 			
 		}catch (EmptyResultDataAccessException  e) {
-			throw new FinancialServiceException("client not found");
+			throw new FinancialServiceException("transaction is not done");
 		}catch (Exception e) {
 			throw new FinancialServiceException("sql Exception");
 		}
@@ -82,12 +82,12 @@ public class ClientBalanceRepositoryImp implements ClientBalanceRepository {
 	}
 
 	@Override
-	public boolean isBalanceEnough(int clientId, double cost) throws SQLException,FinancialServiceException{
+	public boolean isBalanceEnough(int clientId, double cost) throws FinancialServiceException{
 	  double balance =0;
 	  try{
 		   balance = this.getClientBalance(clientId);
 		  }catch (EmptyResultDataAccessException  e) {
-			throw new FinancialServiceException("client not found");
+			throw new FinancialServiceException("transaction is not done");
 		}catch (Exception e) {
 			throw new FinancialServiceException("sql Exception");
 		}

@@ -44,13 +44,14 @@ public class PurchaseController {
 	        map.put("clientId", "1");
 	        map.put("cost", String.valueOf(itemService.getTotalPrice()));
 			 ResponseEntity<String> clientCheckBalance = template.getForEntity(WebServiceConstant.CheckBALANCE_URL_API,String.class,map);
+			 System.out.println(clientCheckBalance.getBody());
 			 if(clientCheckBalance.getBody().equals("isdone")){
 				
-				        map.put("clientId", "10");
+				        map.put("clientId", "1");
 				        map.put("account", String.valueOf(itemService.getTotalPrice()));
 				        ResponseEntity<String> clientEntity = template.getForEntity(WebServiceConstant.UPDATE_BALANCE_URL_API,String.class ,map);
 				        System.out.println(clientEntity.getBody());
-				        if(clientCheckBalance.getBody().equals("isdone")){
+				        if(clientEntity.getBody().equals("isdone")){
 				        	destination = "redirect:/receipt";
 				        }
 				        else{

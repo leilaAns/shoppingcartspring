@@ -20,8 +20,10 @@ public class FinancialRestController {
 	public ResponseEntity<String> checkBalance(@PathVariable int clientId, @PathVariable double cost) throws Exception {
 		String message = "";
 		try {
-			clientBalanceService.isBalanceEnough(clientId, cost);
-			message = "isdone";
+			if(clientBalanceService.isBalanceEnough(clientId, cost))
+				message = "isdone";
+			else
+				message = "balance is not enough";
 
 		} catch (Exception e) {
 			message = e.getMessage();
