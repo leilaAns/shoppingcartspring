@@ -48,10 +48,12 @@
 			<button type="submit" value="save">save</button>
 		</td>
 		<div>
-			<a href="<spring:url value="/purchase"/>">Purchase</a>
+			<a href="<spring:url value="/purchase"/>">Purchase-soapWS</a>
+
 		</div>
-
-
+		<div>
+			<a href="<spring:url value="/purchaseRest"/>">Purchase-RestWS</a>
+		</div>
 	</form:form>
 </body>
 </html>
