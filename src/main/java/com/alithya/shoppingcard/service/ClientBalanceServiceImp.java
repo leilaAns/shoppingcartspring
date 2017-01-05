@@ -1,10 +1,9 @@
 package com.alithya.shoppingcard.service;
 
-import java.sql.SQLException;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.alithya.shoppingcard.exception.FinancialServiceException;
 import com.alithya.shoppingcard.repository.ClientBalanceRepository;
 

@@ -1,6 +1,6 @@
 package com.alithya.shoppingcard.repository;
 
-import java.sql.SQLException;
+
 
 import com.alithya.shoppingcard.exception.FinancialServiceException;
 

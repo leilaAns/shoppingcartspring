@@ -1,7 +1,6 @@
 package com.alithya.shoppingcard.repository;
 
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
@@ -11,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-
 import com.alithya.shoppingcard.exception.FinancialServiceException;
 
 
@@ -31,7 +29,7 @@ public class ClientBalanceRepositoryImp implements ClientBalanceRepository {
 	public ClientBalanceRepositoryImp(DataSource dataSource) {
 
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-		namedParametersMap = new HashMap<>();
+		namedParametersMap = new HashMap<String, Object>();
 
 	}
 	

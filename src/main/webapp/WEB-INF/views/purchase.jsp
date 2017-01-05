@@ -48,7 +48,7 @@
 
 			</c:forEach>
 
-
+		
 			<td></td>
 
 		</table>
@@ -68,6 +68,7 @@
 		<div>
 		
 			<div id="status_message" name="message">${message }</div>
+			<a href="ws/balance.wsdl">Balance.wsdl</a>
 	</form:form>
 
 

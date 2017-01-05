@@ -13,7 +13,7 @@ public class ShoppingCard {
 	private double totalPrice;
 
 	public ShoppingCard() {
-		buyableItemList = new ArrayList<>();
+		buyableItemList = new ArrayList<BuyableItem>();
 	}
 
 	public List<BuyableItem> getBuyableItemList() {
