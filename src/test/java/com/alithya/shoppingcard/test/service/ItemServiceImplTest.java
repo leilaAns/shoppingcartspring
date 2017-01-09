@@ -121,12 +121,12 @@ public class ItemServiceImplTest {
 
 	}
 
-	@Test
-	public void testDeletItem() {
-		doNothing().when(itemRepository).deleteItem(1);
-		itemService.deleteItem(1);
-		assertNull(itemService.find(1));
-	}
+//	@Test
+//	public void testDeletItem() {
+//		doNothing().when(itemRepository).deleteItem(1);
+//		itemService.deleteItem(1);
+//		assertNull(itemService.find(1));
+//	}
 
 	@Test
 	public void testFindItemByKeySearch_description() {

@@ -17,14 +17,6 @@ import org.springframework.xml.xsd.XsdSchema;
 @ComponentScan({"io.spring.guides.gs_producing_web_service","com.alithya.shoppingcard","com.alithya.shoppingcard.service","com.alithya.shoppingcard.controller","com.alithya.shoppingcard.repository","com.alithya.shoppingcard.resolvers"})
 public class WebServiceConfig  extends WsConfigurerAdapter{
 	
-	/*@Bean
-	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
-		MessageDispatcherServlet servlet = new MessageDispatcherServlet();
-		servlet.setApplicationContext(applicationContext);
-		servlet.setTransformWsdlLocations(true);
-		return new ServletRegistrationBean(servlet, "/ws/*");
-	}*/
-
 	@Bean(name = "balance")
 	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema balanceSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();

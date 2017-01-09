@@ -21,14 +21,18 @@
 </head>
 <body>
 
-	<form:form method="POST" modelAttribute="user">
+	<form:form method="POST" >
 		<div>
 			<div>
 				<br> <br>
 			</div>
 			<div>
-				<label>UserRole</label>
-				<form:input path="role" name="user" />
+				<label>userName</label>
+<%-- 				<form:input path="role" name="user" /> --%>
+				
+				<input type="text" name="user" />
+				<label>password</label>
+				<input type="text" name="user" />
 			</div>
 
 			<button type="submit">Enter</button>

@@ -20,7 +20,10 @@
 <body>
 	<div>
 		<h2>This is user page</h2>
+			<h5>Welcome ${pageContext.request.userPrincipal.name}  <a href="<c:url value="/logout" />" > Logout</a></h5>
+	
 	</div>
+	
 	<table>
 		<tr>
 			<td><a href="<spring:url value="/searchItem"/>"> search Item</a></td>

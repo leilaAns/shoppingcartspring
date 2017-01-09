@@ -1,6 +1,8 @@
 package com.alithya.shoppingcard.configuration;
 
 
+
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -8,19 +10,20 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 
+
 public class MyDispatcherServlet extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[]{
-				MyWebAppContextConfig.class,MyDataSourceConfig.class
+				MyWebAppContextConfig.class
 				};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class[]{
-				MyDispatcherServlet.class //,WebServiceConfig.class
+				MyDispatcherServlet.class
 				};
 
 	}
