@@ -2,27 +2,27 @@ package com.alithya.shoppingcard.service;
 
 import java.util.List;
 import com.alithya.shoppingcard.entity.BuyableItem;
-import com.alithya.shoppingcard.entity.Item;
 
-public interface ItemService {
 
-	public List<Item> findAll();
+public interface ItemService<T> {
 
-	public Item find(int id);
+	public  List<T> findAll();
 
-	public void addNewItem(Item item);
+	public  T find(int id);
 
-	public void editItem(Item item);
+	public  void addNewItem(T item);
+
+	public  void editItem(T item);
 
 	public void deleteItem(int id);
 
-	public List<Item> findByName(String name);
+	public  List<T> findByName(String name);
 
-	public List<Item> findByType(String type);
+	public  List<T> findByType(String type);
 
-	public List<Item> findByDescription(String des);
+	public  List<T> findByDescription(String des);
 
-	public List<Item> findItemByKeySearch(String key);
+	public  List<T> findItemByKeySearch(String key);
 
 	public List<BuyableItem> findBuyableItemsInBasket();
 

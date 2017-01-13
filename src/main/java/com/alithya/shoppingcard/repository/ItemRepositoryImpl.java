@@ -14,8 +14,9 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import com.alithya.shoppingcard.entity.Item;
 
+
 @Repository
-public class ItemRepositoryImpl implements ItemRepository {
+public class ItemRepositoryImpl implements ItemRepository<Item> {
 
 	public static final String FIND_ALLITEMS = "select * from item_table";
 	public static final String FIND_ITEM_BYID = "select * from item_table where id = :itemId";
@@ -91,26 +92,14 @@ public class ItemRepositoryImpl implements ItemRepository {
 	}
 
 	@Override
-	public int insert(Item item) {
-		namedParametersMap.put("itemId", item.getId());
-		namedParametersMap.put("itemName", item.getName());
-		namedParametersMap.put("itemType", item.getType());
-		namedParametersMap.put("itemDes", item.getDes());
+	public  int insert(Item item) {
+		namedParametersMap.put("itemId", ((com.alithya.shoppingcard.entity.Item) item).getId());
+		namedParametersMap.put("itemName", ((com.alithya.shoppingcard.entity.Item)item).getName());
+		namedParametersMap.put("itemType", ((com.alithya.shoppingcard.entity.Item)item).getType());
+		namedParametersMap.put("itemDes", ((com.alithya.shoppingcard.entity.Item)item).getDes());
 		namedParametersMap.put("itemCount", 0);
-		namedParametersMap.put("itemPrice", item.getPrice());
+		namedParametersMap.put("itemPrice", ((com.alithya.shoppingcard.entity.Item)item).getPrice());
 		return namedParameterJdbcTemplate.update(INSERT_ITEM, namedParametersMap);
-
-	}
-
-	@Override
-	public int update(Item item) {
-
-		namedParametersMap.put("itemName", item.getName());
-		namedParametersMap.put("itemType", item.getType());
-		namedParametersMap.put("itemDes", item.getDes());
-		namedParametersMap.put("itemId", item.getId());
-		return namedParameterJdbcTemplate.update(UPDATE_ITEM, namedParametersMap);
-
 	}
 
 	private class ItemMapper implements RowMapper<Item> {
@@ -122,6 +111,17 @@ public class ItemRepositoryImpl implements ItemRepository {
 		}
 
 	}
+
+	@Override
+	public  int update(Item item) {
+		namedParametersMap.put("itemName", ((com.alithya.shoppingcard.entity.Item) item).getName());
+		namedParametersMap.put("itemType", ((com.alithya.shoppingcard.entity.Item) item).getType());
+		namedParametersMap.put("itemDes", ((com.alithya.shoppingcard.entity.Item) item).getDes());
+		namedParametersMap.put("itemId", ((com.alithya.shoppingcard.entity.Item) item).getId());
+		return namedParameterJdbcTemplate.update(UPDATE_ITEM, namedParametersMap);
+	}
+
+
 
 
 }

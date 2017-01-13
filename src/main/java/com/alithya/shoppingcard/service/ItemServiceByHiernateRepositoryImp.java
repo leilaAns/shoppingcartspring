@@ -5,63 +5,77 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alithya.shoppingcard.entity.BuyableItem;
-import com.alithya.shoppingcard.entity.Item;
 import com.alithya.shoppingcard.entity.ShoppingCard;
+import com.alithya.shoppingcard.persistence.ItemEntity;
 import com.alithya.shoppingcard.repository.ItemRepository;
 
-@Service
-public class ItemServiceImpl implements ItemService<Item> {
 
-	@Autowired
-	private ItemRepository<Item> itemRepository;
+
+
+
+@Service
+public class ItemServiceByHiernateRepositoryImp implements ItemService<ItemEntity>{
 
 	@Autowired
 	private ShoppingCard shoppingCard;
-
-	List<Item> items = new ArrayList<>();
+	
+	@Autowired
+	private ItemRepository<ItemEntity> itemRepository;
+	
 	List<BuyableItem> buyableItems = new ArrayList<BuyableItem>();
-
-	public ItemServiceImpl() {
-
-	}
-
-	public List<Item> findAll() {
-
-		items = itemRepository.findAll();
+	List<ItemEntity> items = new ArrayList<>();
+	
+	@Override
+	public List<ItemEntity> findAll() {
+		
 		return itemRepository.findAll();
 	}
 
-	public Item find(int id) {
-
+	@Override
+	public ItemEntity find(int id) {
+		
 		return itemRepository.findById(id);
-
 	}
 
+	@Override
+	public void addNewItem(ItemEntity item) {
+		itemRepository.insert(item);
+	}
+
+	@Override
+	public void editItem(ItemEntity item) {
+		itemRepository.update(item);
+		
+	}
+
+	@Override
 	public void deleteItem(int id) {
+		
 		itemRepository.deleteItem(id);
 	}
 
-	public List<Item> findByName(String name) {
+	@Override
+	public List<ItemEntity> findByName(String name) {
 		return itemRepository.findByName(name);
 	}
 
-	public List<Item> findByType(String type) {
-		return itemRepository.findByType(type);
+	@Override
+	public List<ItemEntity> findByType(String type) {
+		return itemRepository.findByKey(type);
 	}
 
-	public List<Item> findByDescription(String des) {
+	@Override
+	public List<ItemEntity> findByDescription(String des) {
 		return itemRepository.findByDescription(des);
 	}
 
-	public List<Item> findItemByKeySearch(String key) {
-
+	@Override
+	public List<ItemEntity> findItemByKeySearch(String key) {
 		return itemRepository.findByKey(key);
-
 	}
 
 	@Override
 	public List<BuyableItem> findBuyableItemsInBasket() {
-
 		List<BuyableItem> buybleItmeInBasket = new ArrayList<BuyableItem>();
 		double totalPrice = 0.0;
 		for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
@@ -77,7 +91,6 @@ public class ItemServiceImpl implements ItemService<Item> {
 
 	@Override
 	public void updateShoppingCard(String[] itemIds) {
-
 		int count = 0;
 		for (String id : itemIds) {
 			for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
@@ -91,29 +104,11 @@ public class ItemServiceImpl implements ItemService<Item> {
 			}
 
 		}
-
-	}
-
-	@Override
-	public void resetBuyableItemCount(String[] buyableItemIds) {
-
-		for (String id : buyableItemIds) {
-			for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
-				if (buyableItem.getId() == Integer.parseInt(id)) {
-
-					buyableItem.setCount(0);
-
-				}
-			}
-
-		}
-
 	}
 
 	@Override
 	public void CreateBuyableItemList() {
-
-		for (Item item : items) {
+		for (ItemEntity item : items) {
 			BuyableItem buyableItem = new BuyableItem();
 			buyableItem.setId(item.getId());
 			buyableItem.setName(item.getName());
@@ -125,25 +120,26 @@ public class ItemServiceImpl implements ItemService<Item> {
 
 		}
 		shoppingCard.setBuyableItemList(buyableItems);
+	}
 
+	@Override
+	public void resetBuyableItemCount(String[] buyableItemIds) {
+		for (String id : buyableItemIds) {
+			for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
+				if (buyableItem.getId() == Integer.parseInt(id)) {
+
+					buyableItem.setCount(0);
+
+				}
+			}
+
+		}
+		
 	}
 
 	@Override
 	public double getTotalPrice() {
 		return shoppingCard.getTotalPrice();
-	}
-
-	@Override
-	public  void addNewItem(Item item) {
-		
-		itemRepository.insert(item);	
-	}
-
-	@Override
-	public  void editItem(Item item) {
-		
-		itemRepository.update(item);
-		
 	}
 
 }

@@ -29,7 +29,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/adminFirstPage").hasRole("ADMIN")
         .antMatchers("/userFirstPage").hasRole("USER")
         .antMatchers("/userFirstPage").hasRole("USER")
-        .and().formLogin();
+        .and().formLogin().and().csrf().disable();
 
     }
 	
