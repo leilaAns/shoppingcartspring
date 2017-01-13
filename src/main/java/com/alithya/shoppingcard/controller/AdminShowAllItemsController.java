@@ -11,7 +11,7 @@ import com.alithya.shoppingcard.service.ItemService;
 public class AdminShowAllItemsController {
 
 	@Autowired
-	private ItemService<ItemEntity> itemService;
+	private ItemService<?> itemService;
 
 	@RequestMapping("/adminShowAllItems")
 	public String showAllItem(Model model) {

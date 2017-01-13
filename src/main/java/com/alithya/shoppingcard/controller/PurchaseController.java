@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.alithya.shoppingcard.service.BalanceConsumeService;
-import com.alithya.shoppingcard.service.ItemService;
+import com.alithya.shoppingcard.service.ItemServiceBasketMethods;
+
 
 
 @Controller
 public class PurchaseController {
 
 	@Autowired
-	private ItemService itemService;
+	private ItemServiceBasketMethods itemService;
 	
 	@Autowired
 	private BalanceConsumeService balanceConsumeService;

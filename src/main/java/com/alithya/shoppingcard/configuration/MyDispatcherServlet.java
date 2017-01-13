@@ -43,6 +43,6 @@ public class MyDispatcherServlet extends AbstractAnnotationConfigDispatcherServl
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("webServiceServletDispatcher", messageDispatcherServlet);
 	    dispatcher.addMapping("/ws/*");
 		super.onStartup(servletContext);
-		servletContext.setInitParameter("spring.profiles.active", "dev");
+		servletContext.setInitParameter("spring.profiles.active", "dev, hibernate");
 	}
 }

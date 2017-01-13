@@ -24,14 +24,14 @@ public interface ItemService<T> {
 
 	public  List<T> findItemByKeySearch(String key);
 
-	public List<BuyableItem> findBuyableItemsInBasket();
+//	public List<BuyableItem> findBuyableItemsInBasket();
 
-	public void updateShoppingCard(String[] itemIds);
-
-	public void CreateBuyableItemList();
-
-	public void resetBuyableItemCount(String[] buyableItemIds);
-	
-	public double getTotalPrice();
+//	public void updateShoppingCard(String[] itemIds);
+//
+//	public void CreateBuyableItemList();
+//
+//	public void resetBuyableItemCount(String[] buyableItemIds);
+//	
+//	public double getTotalPrice();
 
 }

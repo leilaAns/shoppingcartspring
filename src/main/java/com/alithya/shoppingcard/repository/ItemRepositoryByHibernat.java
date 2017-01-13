@@ -35,14 +35,15 @@ public class ItemRepositoryByHibernat implements ItemRepository<ItemEntity> {
 	public  ItemEntity findById(int id) {
 		Query query = entityManager.createNamedQuery("FIND_ITEM_BYID");
 		query.setParameter("itemId", id);
-		return (ItemEntity) query.getResultList().get(0);
+		return  (ItemEntity) query.getResultList().get(0);
 	}
 
 	@Override
 	public  List<ItemEntity> findByName(String name) {
 		Query query = entityManager.createNamedQuery("FIND_ITEM_BYNMAE");
 		query.setParameter("itemName", name);
-		return query.getResultList();
+		List<ItemEntity> resultList = (List<ItemEntity>)query.getResultList();
+		return resultList;
 
 	}
 
@@ -76,7 +77,7 @@ public class ItemRepositoryByHibernat implements ItemRepository<ItemEntity> {
 
 	@Override
 	public int update(ItemEntity item) {
-//		Query query = entityManager.createNamedQuery("FIND_ITEM_BYTYPE");
+//		Query query = entityManager.createNamedQuery("UPDATE_ITEM");
 //		query.setParameter("itemId", item.getId());
 //		query.setParameter("itemName", item.getName());
 //		query.setParameter("itemType", item.getType());

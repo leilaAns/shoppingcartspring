@@ -14,12 +14,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "item_table")
-@NamedQueries({@NamedQuery(name = "FIND_ITEM_BYID",query = "select i from item_table i where id = :itemId"),
-	@NamedQuery(name = "FIND_ITEM_BYNMAE",query = "select i from item_table i where name like :itemName"),
-	@NamedQuery(name = "FIND_ITEM_BYTYPE",query = "select i from item_table i where type like :itemType"),
-	@NamedQuery(name = "FIND_ITEM_BYDESCRIPTION",query = "select i from item_table i where description like :itemDes"),
-	@NamedQuery(name = "FIND_TIEM_BYKEY",query = "select * from item_table where name like :key or type like :key or description like :key"),
-	@NamedQuery(name = "UPDATE_ITEM",query = "update item_table set name = :itemName , type = :itemType , description = :itemDes where id = :itemId")})
+@NamedQueries({@NamedQuery(name = "FIND_ITEM_BYID",query = "select i from ItemEntity i where id = :itemId"),
+	@NamedQuery(name = "FIND_ITEM_BYNMAE",query = "select i from ItemEntity i where name like :itemName"),
+	@NamedQuery(name = "FIND_ITEM_BYTYPE",query = "select i from ItemEntity i where type like :itemType"),
+	@NamedQuery(name = "FIND_ITEM_BYDESCRIPTION",query = "select i from ItemEntity i where description like :itemDes"),
+	@NamedQuery(name = "FIND_TIEM_BYKEY",query = "select i from ItemEntity i where name like :key or type like :key or description like :key"),
+	@NamedQuery(name = "UPDATE_ITEM",query = "update ItemEntity set name = :itemName , type = :itemType , description = :itemDes where id = :itemId")})
 public class ItemEntity {
 
 	@Id
@@ -78,5 +78,4 @@ public class ItemEntity {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
 }
