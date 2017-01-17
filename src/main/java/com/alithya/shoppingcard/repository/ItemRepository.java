@@ -2,6 +2,8 @@ package com.alithya.shoppingcard.repository;
 
 import java.util.List;
 
+import com.alithya.shoppingcard.entity.DefaultItem;
+
 
 public interface ItemRepository<T> {
 
@@ -17,9 +19,9 @@ public interface ItemRepository<T> {
 
 	public int deleteItem(int id);
 
-	public  int update(T item);
+	public  int update(DefaultItem defaulItem);
 
-	public  int insert(T item);
+	public  int insert(DefaultItem defaulItem);
 
 	public  List<T> findByKey(String key);
 

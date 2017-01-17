@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.alithya.shoppingcard.constant.WebServiceConstant;
-import com.alithya.shoppingcard.service.ItemServiceBasketMethods;
+import com.alithya.shoppingcard.service.BasketServiceByHibernate;
 
 @Controller
 public class PurchaseRESTFunctionController {
 
 
 	@Autowired
-     private ItemServiceBasketMethods itemService;
+     private BasketServiceByHibernate itemService;
 	
 	@RequestMapping(value = "/purchaseRest")
 	public String showBasketItems(Model model) {

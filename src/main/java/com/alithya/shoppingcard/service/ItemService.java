@@ -1,7 +1,12 @@
 package com.alithya.shoppingcard.service;
 
 import java.util.List;
-import com.alithya.shoppingcard.entity.BuyableItem;
+
+import com.alithya.shoppingcard.entity.DefaultItem;
+
+
+
+
 
 
 public interface ItemService<T> {
@@ -10,9 +15,7 @@ public interface ItemService<T> {
 
 	public  T find(int id);
 
-	public  void addNewItem(T item);
-
-	public  void editItem(T item);
+	public  void editItem(DefaultItem defaultItem);
 
 	public void deleteItem(int id);
 
@@ -23,15 +26,13 @@ public interface ItemService<T> {
 	public  List<T> findByDescription(String des);
 
 	public  List<T> findItemByKeySearch(String key);
+	
+	public T createItem();
 
-//	public List<BuyableItem> findBuyableItemsInBasket();
+	public void addNewItem(DefaultItem defaultItem);
 
-//	public void updateShoppingCard(String[] itemIds);
-//
-//	public void CreateBuyableItemList();
-//
-//	public void resetBuyableItemCount(String[] buyableItemIds);
-//	
-//	public double getTotalPrice();
+	
+
+
 
 }

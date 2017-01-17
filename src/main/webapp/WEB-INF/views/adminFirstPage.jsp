@@ -19,7 +19,9 @@
 
 </head>
 <body>
+
 	<div>
+		
 		<h2>This is admin page</h2>
 		<h5>Welcome ${pageContext.request.userPrincipal.name}
                   <a href="<c:url value="/logout" />" > Logout</a></h5>

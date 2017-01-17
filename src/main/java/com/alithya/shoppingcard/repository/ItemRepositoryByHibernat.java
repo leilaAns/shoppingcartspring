@@ -7,6 +7,9 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.alithya.shoppingcard.entity.DefaultItem;
 import com.alithya.shoppingcard.persistence.ItemEntity;
 
 
@@ -27,8 +30,8 @@ public class ItemRepositoryByHibernat implements ItemRepository<ItemEntity> {
 	    CriteriaQuery<ItemEntity> createQuery = entityManager.getCriteriaBuilder().createQuery(ItemEntity.class);
 	    Root<ItemEntity> root = createQuery.from(ItemEntity.class);
 	    createQuery.select(root);
-	    return entityManager.createQuery(createQuery).getResultList();
-	
+        return entityManager.createQuery(createQuery).getResultList();
+	   
 	}
 
 	@Override
@@ -65,31 +68,34 @@ public class ItemRepositoryByHibernat implements ItemRepository<ItemEntity> {
 	public  List<ItemEntity> findByKey(String key) {
 		Query query = entityManager.createNamedQuery("FIND_TIEM_BYKEY");
 		query.setParameter("key", key);
-		return query.getResultList();
+		List<ItemEntity> items = query.getResultList();
+		for(ItemEntity item : items)
+			System.out.println(item.getName());
+		return items;
 	}
 	
 	@Override
+	@Transactional
 	public int deleteItem(int id) {
 		ItemEntity itemEntity = entityManager.find(ItemEntity.class, id);
 		entityManager.remove(itemEntity);
 		return 0;
 	}
 
+
 	@Override
-	public int update(ItemEntity item) {
-//		Query query = entityManager.createNamedQuery("UPDATE_ITEM");
-//		query.setParameter("itemId", item.getId());
-//		query.setParameter("itemName", item.getName());
-//		query.setParameter("itemType", item.getType());
-//		query.setParameter("itemDes", item.getDes());
-//		query.setParameter("itemPrice", item.getPrice());
-//		entityManager.
+	@Transactional
+	public int update(DefaultItem itemEntity) {
+		entityManager.merge(itemEntity);
+		entityManager.flush();
 		return 0;
 	}
 
+
 	@Override
-	public int insert(ItemEntity item) {
-		entityManager.persist(item);
+	@Transactional
+	public int insert(DefaultItem itemEntity) {
+		entityManager.persist(itemEntity);
 		return 0;
 	}
 

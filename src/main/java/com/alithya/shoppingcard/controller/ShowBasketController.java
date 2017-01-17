@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alithya.shoppingcard.service.ItemServiceBasketMethods;
+import com.alithya.shoppingcard.service.BasketServiceByHibernate;
 import com.alithya.shoppingcard.service.ItemServiceImpl;
 
 @Controller
 public class ShowBasketController {
 
 	@Autowired
-    private ItemServiceBasketMethods itemService;
+    private BasketServiceByHibernate itemService;
 
 	@RequestMapping(value = "/showBasket")
 	public ModelAndView showBuyableItemsInBasket(Model model) {

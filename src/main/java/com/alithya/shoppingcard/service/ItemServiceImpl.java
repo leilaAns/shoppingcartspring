@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import com.alithya.shoppingcard.entity.BuyableItem;
+import com.alithya.shoppingcard.entity.DefaultItem;
 import com.alithya.shoppingcard.entity.Item;
-import com.alithya.shoppingcard.entity.ShoppingCard;
+import com.alithya.shoppingcard.persistence.ItemEntity;
 import com.alithya.shoppingcard.repository.ItemRepository;
 
 @Service(value = "itemService")
@@ -16,9 +17,6 @@ public class ItemServiceImpl implements ItemService<Item> {
 
 	@Autowired
 	private ItemRepository<Item> itemRepository;
-
-	@Autowired
-	private ShoppingCard shoppingCard;
 
 	List<Item> items = new ArrayList<>();
 	List<BuyableItem> buyableItems = new ArrayList<BuyableItem>();
@@ -55,24 +53,54 @@ public class ItemServiceImpl implements ItemService<Item> {
 		return itemRepository.findByDescription(des);
 	}
 
+	
 	public List<Item> findItemByKeySearch(String key) {
 
 		return itemRepository.findByKey(key);
 
 	}
 
+//
+//
+//	@Override
+//	public void addNewItem(Object item) {
+//		itemRepository.insert(item);	
+//	}
+//
+//	@Override
+//	public void editItem(Object item) {
+//		itemRepository.update(item);
+//	}
 
 	@Override
-	public  void addNewItem(Item item) {
-		
-		itemRepository.insert(item);	
+	public Item createItem() {
+		return new Item();
+	}
+
+
+
+	@Override
+	public void editItem(DefaultItem defaultItem) {
+
+		itemRepository.update(setItemProperites(defaultItem));
 	}
 
 	@Override
-	public  void editItem(Item item) {
-		
-		itemRepository.update(item);
+	public void addNewItem(DefaultItem defaultItem) {
+	
+		itemRepository.insert(setItemProperites(defaultItem));	
 		
 	}
+	
+	private DefaultItem setItemProperites(DefaultItem defaultItem){
+		DefaultItem item = new Item();
+		item.setDes(defaultItem.getDes());
+		item.setId(defaultItem.getId());
+		item.setName(defaultItem.getName());
+		item.setPrice(defaultItem.getPrice());
+		item.setType(defaultItem.getType());
+		return item;
+	}
+	
 
 }

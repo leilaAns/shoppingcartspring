@@ -6,26 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-
 import com.alithya.shoppingcard.entity.BuyableItem;
 import com.alithya.shoppingcard.entity.Item;
 import com.alithya.shoppingcard.entity.ShoppingCard;
-import com.alithya.shoppingcard.persistence.ItemEntity;
 import com.alithya.shoppingcard.repository.ItemRepository;
 
-@Profile("hibernate")
+@Profile("jdbc")
 @Service
-public  class BasketServiceByHibernate{
-
-
+public class BasketServiceByJDBC {
 	@Autowired
 	private ShoppingCard shoppingCard;
 	
 	@Autowired
-	private ItemRepository<ItemEntity> itemRepository;
+	private ItemRepository<Item> itemRepository;
 	
 	List<BuyableItem> buyableItems = new ArrayList<BuyableItem>();
-	List<ItemEntity> items = new ArrayList<>();
+	List<Item> items = new ArrayList<>();
 	
 
 	
@@ -83,7 +79,7 @@ public  class BasketServiceByHibernate{
 	public void CreateBuyableItemList() {
 		
 		items =  itemRepository.findAll();
-		for (ItemEntity item : items) {
+		for (Item item : items) {
 			BuyableItem buyableItem = new BuyableItem();
 			buyableItem.setId(item.getId());
 			buyableItem.setName(item.getName());
@@ -105,5 +101,6 @@ public  class BasketServiceByHibernate{
 	public double getTotalPrice() {
 		return shoppingCard.getTotalPrice();
 	}
+
 
 }

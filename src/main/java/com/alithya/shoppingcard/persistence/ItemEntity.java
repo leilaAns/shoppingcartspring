@@ -9,73 +9,59 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.alithya.shoppingcard.entity.DefaultItem;
+
 
 
 
 @Entity
 @Table(name = "item_table")
 @NamedQueries({@NamedQuery(name = "FIND_ITEM_BYID",query = "select i from ItemEntity i where id = :itemId"),
-	@NamedQuery(name = "FIND_ITEM_BYNMAE",query = "select i from ItemEntity i where name like :itemName"),
-	@NamedQuery(name = "FIND_ITEM_BYTYPE",query = "select i from ItemEntity i where type like :itemType"),
-	@NamedQuery(name = "FIND_ITEM_BYDESCRIPTION",query = "select i from ItemEntity i where description like :itemDes"),
-	@NamedQuery(name = "FIND_TIEM_BYKEY",query = "select i from ItemEntity i where name like :key or type like :key or description like :key"),
-	@NamedQuery(name = "UPDATE_ITEM",query = "update ItemEntity set name = :itemName , type = :itemType , description = :itemDes where id = :itemId")})
-public class ItemEntity {
+	@NamedQuery(name = "FIND_ITEM_BYNMAE",query = "select i from ItemEntity i where i.name like :itemName"),
+	@NamedQuery(name = "FIND_ITEM_BYTYPE",query = "select i from ItemEntity i where i.type like :itemType"),
+	@NamedQuery(name = "FIND_ITEM_BYDESCRIPTION",query = "select i from ItemEntity i where i.des like :itemDes"),
+	@NamedQuery(name = "FIND_TIEM_BYKEY",query = "select i from ItemEntity i where i.name like :key or i.type =:key or i.des =:key")
+})
+public class ItemEntity extends DefaultItem implements java.io.Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6852553612988511346L;
+
+	public ItemEntity() {
+		super();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
-	
-	@Column(name= "name")
-	private String name;
-	
-	@Column(name = "type")
-	private String type;
-	
-	@Column(name= "description")
-	private String des;
-	
-	@Column(name = "price")
-	private double price;
-
+	@Override
 	public int getId() {
-		return id;
+		return super.getId();
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	@Column(name= "name")
+	@Override
 	public String getName() {
-		return name;
+		return super.getName();
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	@Column(name = "type")
+	@Override
 	public String getType() {
-		return type;
+		return super.getType();
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
+	@Column(name= "description")
+	@Override
 	public String getDes() {
-		return des;
+		return super.getDes();
 	}
 
-	public void setDes(String des) {
-		this.des = des;
-	}
-
+	@Column(name = "price")
+	@Override
 	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
+		return super.getPrice();
 	}
 }

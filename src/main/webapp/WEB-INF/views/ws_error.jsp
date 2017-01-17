@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>An error was encountered in payment !!! try again </h1>
+<h1>An error was encountered  !!! try again </h1>
 
 
 </body>
