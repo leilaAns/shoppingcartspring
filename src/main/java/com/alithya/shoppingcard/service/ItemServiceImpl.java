@@ -3,23 +3,23 @@ package com.alithya.shoppingcard.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import com.alithya.shoppingcard.entity.BuyableItem;
+import com.alithya.shoppingcard.entity.DefaultItem;
 import com.alithya.shoppingcard.entity.Item;
-import com.alithya.shoppingcard.entity.ShoppingCard;
+import com.alithya.shoppingcard.persistence.ItemEntity;
 import com.alithya.shoppingcard.repository.ItemRepository;
 
-@Service
-public class ItemServiceImpl implements ItemService {
+@Service(value = "itemService")
+@Profile("jdbc")
+public class ItemServiceImpl implements ItemService<Item> {
 
 	@Autowired
-	private ItemRepository itemRepository;
-
-	@Autowired
-	private ShoppingCard shoppingCard;
+	private ItemRepository<Item> itemRepository;
 
 	List<Item> items = new ArrayList<>();
-	List<BuyableItem> buyableItems = new ArrayList();
+	List<BuyableItem> buyableItems = new ArrayList<BuyableItem>();
 
 	public ItemServiceImpl() {
 
@@ -35,16 +35,6 @@ public class ItemServiceImpl implements ItemService {
 
 		return itemRepository.findById(id);
 
-	}
-
-	public void addNewItem(Item item) {
-
-		itemRepository.insert(item);
-	}
-
-	public void editItem(Item item) {
-
-		itemRepository.update(item);
 	}
 
 	public void deleteItem(int id) {
@@ -63,74 +53,54 @@ public class ItemServiceImpl implements ItemService {
 		return itemRepository.findByDescription(des);
 	}
 
+	
 	public List<Item> findItemByKeySearch(String key) {
 
 		return itemRepository.findByKey(key);
 
 	}
 
-	@Override
-	public List<BuyableItem> findBuyableItemsInBasket() {
+//
+//
+//	@Override
+//	public void addNewItem(Object item) {
+//		itemRepository.insert(item);	
+//	}
+//
+//	@Override
+//	public void editItem(Object item) {
+//		itemRepository.update(item);
+//	}
 
-		List<BuyableItem> buybleItmeInBasket = new ArrayList<BuyableItem>();
-		for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
-			if (buyableItem.getCount() != 0) {
-				buybleItmeInBasket.add(buyableItem);
-			}
-		}
-		return buybleItmeInBasket;
+	@Override
+	public Item createItem() {
+		return new Item();
+	}
+
+
+
+	@Override
+	public void editItem(DefaultItem defaultItem) {
+
+		itemRepository.update(setItemProperites(defaultItem));
 	}
 
 	@Override
-	public void updateShoppingCard(String[] itemIds) {
-
-		int count = 0;
-		for (String id : itemIds) {
-			for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
-				if (buyableItem.getId() == Integer.parseInt(id)) {
-
-					count = buyableItem.getCount();
-					count += 1;
-					buyableItem.setCount(count);
-
-				}
-			}
-
-		}
-
+	public void addNewItem(DefaultItem defaultItem) {
+	
+		itemRepository.insert(setItemProperites(defaultItem));	
+		
 	}
-
-	@Override
-	public void resetBuyableItemCount(String[] buyableItemIds) {
-
-		for (String id : buyableItemIds) {
-			for (BuyableItem buyableItem : shoppingCard.getBuyableItemList()) {
-				if (buyableItem.getId() == Integer.parseInt(id)) {
-
-					buyableItem.setCount(0);
-
-				}
-			}
-
-		}
-
+	
+	private DefaultItem setItemProperites(DefaultItem defaultItem){
+		DefaultItem item = new Item();
+		item.setDes(defaultItem.getDes());
+		item.setId(defaultItem.getId());
+		item.setName(defaultItem.getName());
+		item.setPrice(defaultItem.getPrice());
+		item.setType(defaultItem.getType());
+		return item;
 	}
-
-	@Override
-	public void CreateBuyableItemList() {
-
-		for (Item item : items) {
-			BuyableItem buyableItem = new BuyableItem();
-			buyableItem.setId(item.getId());
-			buyableItem.setName(item.getName());
-			buyableItem.setType(item.getType());
-			buyableItem.setDes(item.getDes());
-			buyableItem.setCount(0);
-			buyableItems.add(buyableItem);
-
-		}
-		shoppingCard.setBuyableItemList(buyableItems);
-
-	}
+	
 
 }

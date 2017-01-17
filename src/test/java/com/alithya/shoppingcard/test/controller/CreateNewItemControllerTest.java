@@ -23,12 +23,12 @@ import com.alithya.shoppingcard.service.ItemService;
 public class CreateNewItemControllerTest {
 
 	@Mock
-	private ItemService itmeService;
+	private ItemService<Item> itmeService;
 
 	@InjectMocks
 	private CreateNewItemController createNewItemController;
 
-	private Item item = new Item(1, "name", "type", "des");
+	private Item item = new Item(1, "name", "type", "des",10.00);
 
 	@Before
 	public void setup() {
@@ -37,8 +37,7 @@ public class CreateNewItemControllerTest {
 
 	@Test
 	public void testSaveItem() {
-		doNothing().when(itmeService).addNewItem(item);
-		assertSame("retrun the correct page", "createNewItem", createNewItemController.saveItem(item));
+			assertSame("retrun the correct page", "createNewItem", createNewItemController.showPage());
 	}
 
 	@Test

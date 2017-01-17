@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.alithya.shoppingcard.entity.Item;
+import com.alithya.shoppingcard.persistence.ItemEntity;
 import com.alithya.shoppingcard.service.ItemService;
 
 @Controller
@@ -17,7 +16,7 @@ import com.alithya.shoppingcard.service.ItemService;
 public class ShowItemController {
 
 	@Autowired
-	private ItemService itemService;
+	private ItemService<ItemEntity> itemService;
 
 	@RequestMapping(value = "/{itemId}")
 	public String showItem(Model model, @PathVariable int itemId) {
@@ -26,7 +25,7 @@ public class ShowItemController {
 	}
 
 	@RequestMapping(value = "/{itemId}", method = RequestMethod.POST)
-	public String editOrDeleteItem(@RequestParam String action,@ModelAttribute Item item) {
+	public String editOrDeleteItem(@RequestParam String action,@ModelAttribute ItemEntity item) {
 
 		if (action.equals("edit")) {
 			itemService.editItem(item);

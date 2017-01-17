@@ -45,7 +45,7 @@ public class AdminShowAllItemsControllerTest {
 	@Test
 	public void testShowAllItem() {
 		List<Item> items = new ArrayList<Item>();
-		items.add(new Item(1, "name1", "type1", "des"));
+		items.add(new Item(1, "name1", "type1", "des",10.00));
 		model.addAttribute("allItems", when(itmeService.findAll()).thenReturn((List) items));
 		assertSame("retrun the correct page", "adminShowAllItems", adminShowAllItemsController.showAllItem(model));
 		assertNotNull(model.asMap());

@@ -21,24 +21,57 @@
 			<tr>
 
 				<td>name</td>
+				<td></td>
 				<td>type</td>
+				<td></td>
 				<td>description</td>
+				<td></td>
+				<td>price</td>
+				<td></td>
 				<td>count</td>
+				<td></td>
 			</tr>
 			<c:forEach items="${purchasedItems}" var="item">
 				<tr>
 					<td>${item.name}</td>
+					<td></td>
 					<td>${item.type}</td>
+					<td></td>
 					<td>${item.des}</td>
+					<td></td>
+					<td>${item.price}</td>
+					<td></td>
 					<td>${item.count}</td>
+					<td></td>
 
 				</tr>
+
 			</c:forEach>
 
+		
 			<td></td>
 
 		</table>
 
+		<div>
+			<label>TotalPrice :</label> <input type="text" name="totalPrice"
+				value=${totalPrice } readonly />
+		</div>
+
+
+		<div>
+			<div></div>
+			<button value="pay" name="action">Pay</button>
+
+			<button type="submit" name="action" value="recharge">Recharge</button><label>recharge your account by 100$</label>
+		</div>
+		<div>
+		
+			<div id="status_message" name="message">${message }</div>
+			<a href="ws/balance.wsdl">Balance.wsdl</a>
 	</form:form>
+
+
 </body>
+
 </html>

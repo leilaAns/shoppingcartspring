@@ -27,7 +27,7 @@ import com.alithya.shoppingcard.service.ItemService;
 public class ShowItemControllerTest {
 
 	@Mock
-	private ItemService itmeService ;
+	private ItemService<Item> itmeService ;
 	
 	@InjectMocks
 	private ShowItemController showOneItemController;
@@ -39,7 +39,7 @@ public class ShowItemControllerTest {
 	public void setup(){
 		MockitoAnnotations.initMocks(this);		
 		model = new ExtendedModelMap();
-		item = new Item(1, "name", "type","des");
+		item = new Item(1, "name", "type","des",1.00);
 	}
 	
 	@Test

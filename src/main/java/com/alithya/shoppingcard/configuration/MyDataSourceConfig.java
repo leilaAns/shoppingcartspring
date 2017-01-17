@@ -4,7 +4,8 @@ package com.alithya.shoppingcard.configuration;
 
 
 import javax.sql.DataSource;
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +19,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@ComponentScan({"com.alithya.shoppingcard.service","com.alithya.shoppingcard.repository"})
+@ComponentScan({"com.alithya.shoppingcard.service","com.alithya.shoppingcard.repository","com.alithya.shoppingcard.entity"})
 @PropertySource("classpath:app.properties")
 public class MyDataSourceConfig {
 	

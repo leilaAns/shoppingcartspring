@@ -1,16 +1,22 @@
 package com.alithya.shoppingcard.configuration;
 
 
+
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.ws.transport.http.MessageDispatcherServlet;
+
 
 public class MyDispatcherServlet extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[]{
-				MyWebAppContextConfig.class,MyDataSourceConfig.class
+				MyWebAppContextConfig.class
 				};
 	}
 
@@ -30,7 +36,13 @@ public class MyDispatcherServlet extends AbstractAnnotationConfigDispatcherServl
 	
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+		AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();
+		webContext.register(WebServiceConfig.class);
+		MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet(webContext);
+		messageDispatcherServlet.setTransformWsdlLocations(true);
+		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("webServiceServletDispatcher", messageDispatcherServlet);
+	    dispatcher.addMapping("/ws/*");
 		super.onStartup(servletContext);
-		servletContext.setInitParameter("spring.profiles.active", "test");
+		servletContext.setInitParameter("spring.profiles.active", "dev, hibernate");
 	}
 }

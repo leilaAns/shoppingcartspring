@@ -13,12 +13,13 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-import com.alithya.shoppingcard.entity.BuyableItem;
+
+import com.alithya.shoppingcard.entity.DefaultItem;
 import com.alithya.shoppingcard.entity.Item;
 
+@Profile("jdbc")
 @Repository
-@Profile("test")
-public class ItemRepositoryImpl implements ItemRepository {
+public class ItemRepositoryImpl implements ItemRepository<Item> {
 
 	public static final String FIND_ALLITEMS = "select * from item_table";
 	public static final String FIND_ITEM_BYID = "select * from item_table where id = :itemId";
@@ -26,7 +27,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public static final String FIND_ITEM_BYTYPE = "select * from item_table where type like :itemType";
 	public static final String FIND_ITEM_BYDESCRIPTION = "select * from item_table where description like :itemDes";
 	public static final String DELETE_ITEM = "delete from item_table where id = :itemId";
-	public static final String INSERT_ITEM = "insert into item_table values(:itemId,:itemName,:itemType,:itemDes,:itemCount)";
+	public static final String INSERT_ITEM = "insert into item_table values(:itemId,:itemName,:itemType,:itemDes,:itemPrice)";
 	public static final String UPDATE_ITEM = "update item_table set name = :itemName , type = :itemType , description = :itemDes where id = :itemId";
 	public static final String FIND_TIEM_BYKEY = "select * from item_table where name like :key or type like :key or description like :key";
 
@@ -93,37 +94,39 @@ public class ItemRepositoryImpl implements ItemRepository {
 
 	}
 
-	@Override
-	public int insert(Item item) {
-		namedParametersMap.put("itemId", item.getId());
-		namedParametersMap.put("itemName", item.getName());
-		namedParametersMap.put("itemType", item.getType());
-		namedParametersMap.put("itemDes", item.getDes());
-		namedParametersMap.put("itemCount", 0);
-		return namedParameterJdbcTemplate.update(INSERT_ITEM, namedParametersMap);
-
-	}
-
-	@Override
-	public int update(Item item) {
-
-		namedParametersMap.put("itemName", item.getName());
-		namedParametersMap.put("itemType", item.getType());
-		namedParametersMap.put("itemDes", item.getDes());
-		namedParametersMap.put("itemId", item.getId());
-		return namedParameterJdbcTemplate.update(UPDATE_ITEM, namedParametersMap);
-
-	}
-
 	private class ItemMapper implements RowMapper<Item> {
 
 		@Override
 		public Item mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
 			return new Item(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("type"),
-					resultSet.getString("description"));
+					resultSet.getString("description"), resultSet.getDouble("price"));
 		}
 
 	}
+
+
+	@Override
+	public int update(DefaultItem item) {
+		namedParametersMap.put("itemName", ((com.alithya.shoppingcard.entity.Item) item).getName());
+		namedParametersMap.put("itemType", ((com.alithya.shoppingcard.entity.Item) item).getType());
+		namedParametersMap.put("itemDes", ((com.alithya.shoppingcard.entity.Item) item).getDes());
+		namedParametersMap.put("itemId", ((com.alithya.shoppingcard.entity.Item) item).getId());
+		return namedParameterJdbcTemplate.update(UPDATE_ITEM, namedParametersMap);
+		
+	}
+
+	@Override
+	public int insert(DefaultItem item) {
+		namedParametersMap.put("itemId", ((com.alithya.shoppingcard.entity.Item) item).getId());
+		namedParametersMap.put("itemName", ((com.alithya.shoppingcard.entity.Item)item).getName());
+		namedParametersMap.put("itemType", ((com.alithya.shoppingcard.entity.Item)item).getType());
+		namedParametersMap.put("itemDes", ((com.alithya.shoppingcard.entity.Item)item).getDes());
+		namedParametersMap.put("itemCount", 0);
+		namedParametersMap.put("itemPrice", ((com.alithya.shoppingcard.entity.Item)item).getPrice());
+		return namedParameterJdbcTemplate.update(INSERT_ITEM, namedParametersMap);
+	}
+
+
 
 
 }

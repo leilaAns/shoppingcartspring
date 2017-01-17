@@ -13,7 +13,7 @@ import com.alithya.shoppingcard.service.ItemService;
 public class SearchItemController {
 
 	@Autowired
-	ItemService itemService;
+	ItemService<?> itemService;
 
 	@RequestMapping("searchItem")
 	public String getPage() {
