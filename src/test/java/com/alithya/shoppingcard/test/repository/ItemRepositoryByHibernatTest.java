@@ -10,35 +10,35 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import com.alithya.shoppingcard.configuration.MyDataSourceConfig;
-import com.alithya.shoppingcard.entity.Item;
+import com.alithya.shoppingcard.configuration.PersistenceJPAConfig;
+import com.alithya.shoppingcard.entity.DefaultItem;
+import com.alithya.shoppingcard.persistence.ItemEntity;
 import com.alithya.shoppingcard.repository.ItemRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MyDataSourceConfig.class)
+@ContextConfiguration(classes = PersistenceJPAConfig.class)
 @Transactional
-@ActiveProfiles("test")
-public class ItemRepositoryImplTest {
+@ActiveProfiles({"test", "hibernate"})
+public class ItemRepositoryByHibernatTest {
 
 	@Autowired
-	private ItemRepository<Item> itemRepository ;
-
+	private ItemRepository<ItemEntity> itemRepository ;
+	
 	@Test
 	public void testFindAll() {
-		List<Item> items = itemRepository.findAll();
+		List<ItemEntity> items = itemRepository.findAll();
 		assertEquals(items.size(), 10);
 	}
-
 	@Test
 	public void testFindById() {
-		Item item = itemRepository.findById(1);
+		ItemEntity item = itemRepository.findById(1);
 		assertNotNull(item);
 		assertEquals(item.getId(), 1);
 	}
-
+	
 	@Test
 	public void testFindByName() {
-		List<Item> items = itemRepository.findByName("name1");
+		List<ItemEntity> items = itemRepository.findByName("name1");
 		assertEquals(items.size(), 1);
 		assertEquals(items.get(0).getName(), "name1");
 
@@ -46,54 +46,59 @@ public class ItemRepositoryImplTest {
 
 	@Test
 	public void testFindByType() {
-		List<Item> items = itemRepository.findByType("type1");
+		List<ItemEntity> items = itemRepository.findByType("type1");
 		assertEquals(items.size(), 1);
 		assertEquals(items.get(0).getType(), "type1");
 	}
 
 	@Test
 	public void testFindByDescription() {
-		List<Item> items = itemRepository.findByDescription("des1");
+		List<ItemEntity> items = itemRepository.findByDescription("des1");
 		assertEquals(items.size(), 1);
 		assertEquals(items.get(0).getDes(), "des1");
 	}
 
 	@Test
 	public void testFindByKeyIfKeyIsName() {
-		List<Item> items = itemRepository.findByKey("name1");
+		List<ItemEntity> items = itemRepository.findByKey("name1");
 		assertEquals(items.size(), 1);
 		assertEquals(items.get(0).getName(), "name1");
 	}
 
 	@Test
 	public void testFindByKeyIfKeyIsType() {
-		List<Item> items = itemRepository.findByKey("type1");
+		List<ItemEntity> items = itemRepository.findByKey("type1");
 		assertEquals(items.size(), 1);
 		assertEquals(items.get(0).getType(), "type1");
 	}
 
 	@Test
 	public void testFindByKeyIfKeyIsDescription() {
-		List<Item> items = itemRepository.findByKey("des1");
+		List<ItemEntity> items = itemRepository.findByKey("des1");
 		assertEquals(items.size(), 1);
 		assertEquals(items.get(0).getDes(), "des1");
 	}
 
 	@Test
 	public void testInsert() {
-		int id = itemRepository.insert(new Item(11, "name11", "type11", "des11",20.00));
+		DefaultItem  itemEntity = new ItemEntity();
+		itemEntity.setDes("des11");
+		itemEntity.setName("name11");
+		itemEntity.setType("type11");
+		itemEntity.setPrice(20.00);
+		int id = itemRepository.insert(itemEntity);
 		assertNotNull(id);
 
 	}
 
 	@Test
 	public void testUpdate() {
-		Item item = itemRepository.findById(1);
+		ItemEntity item = itemRepository.findById(1);
 		item.setName("newName");
 		item.setType("newType");
 		item.setDes("newDes");
 		itemRepository.update(item);
-		Item updatedItem = itemRepository.findById(1);
+		ItemEntity updatedItem = itemRepository.findById(1);
 		assertEquals(updatedItem.getName(), "newName");
 		assertEquals(updatedItem.getType(), "newType");
 		assertEquals(updatedItem.getDes(), "newDes");

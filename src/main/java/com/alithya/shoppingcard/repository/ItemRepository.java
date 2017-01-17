@@ -1,7 +1,6 @@
 package com.alithya.shoppingcard.repository;
 
 import java.util.List;
-
 import com.alithya.shoppingcard.entity.DefaultItem;
 
 

@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ActiveProfiles;
 import com.alithya.shoppingcard.entity.BuyableItem;
+import com.alithya.shoppingcard.entity.DefaultItem;
 import com.alithya.shoppingcard.entity.Item;
 import com.alithya.shoppingcard.repository.ItemRepository;
 import com.alithya.shoppingcard.service.ItemService;
@@ -21,10 +22,10 @@ import com.alithya.shoppingcard.service.ItemServiceImpl;
 public class ItemServiceImplTest {
 
 	@Mock
-	private ItemRepository itemRepository;
+	private ItemRepository<Item> itemRepository;
 
 	@InjectMocks
-	private ItemService itemService = new ItemServiceImpl();
+	private ItemService<Item> itemService = new ItemServiceImpl();
 
 	private List<Item> itemList;
 	private BuyableItem buyableItme;
@@ -82,7 +83,7 @@ public class ItemServiceImplTest {
 	public void testFindItemById() {
 		when(itemRepository.findById(111)).thenReturn((new Item(111, "name", "type", "des",10.00)));
 		assertNotNull(itemService.find(111));
-		assertEquals("name", itemService.find(111).getName());
+		assertEquals("name", ((DefaultItem) itemService.find(111)).getName());
 	}
 
 	@Test
@@ -110,14 +111,14 @@ public class ItemServiceImplTest {
 	@Test
 	public void testFindByTypeHasExpectedValue() {
 		when(itemRepository.findByType("type1")).thenReturn((itemList));
-		assertEquals(itemList.get(0).getType(), itemService.findByType("type1").get(0).getType());
+		assertEquals(itemList.get(0).getType(), ((DefaultItem) itemService.findByType("type1").get(0)).getType());
 
 	}
 
 	@Test
 	public void testFindByDescriptinIsNotNull() {
 		when(itemRepository.findByDescription("des1")).thenReturn((itemList));
-		assertNotNull(itemService.findByDescription("des1").get(0).getDes());
+		assertNotNull(itemService.findByDescription("des1").get(0).getClass());
 
 	}
 

@@ -27,7 +27,7 @@ import com.alithya.shoppingcard.service.ItemService;
 public class ShowItemControllerTest {
 
 	@Mock
-	private ItemService itmeService ;
+	private ItemService<Item> itmeService ;
 	
 	@InjectMocks
 	private ShowItemController showOneItemController;

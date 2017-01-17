@@ -1,11 +1,14 @@
 package com.alithya.shoppingcard.repository;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +16,7 @@ import com.alithya.shoppingcard.entity.DefaultItem;
 import com.alithya.shoppingcard.persistence.ItemEntity;
 
 
+@Profile("hibernate")
 @Repository
 public class ItemRepositoryByHibernat implements ItemRepository<ItemEntity> {
 
